@@ -1,21 +1,11 @@
 import React from 'react';
 import SettleOption from './SettleOption';
 
-import { useQuestionStore, useSettleStore } from '../stores/gameStore';
-
-interface IOptionData {
-  label: string,
-  text: string,
-  votes: number,
-}
-
-interface IProps {
-  options: string[],
-}
+import { useGameStore } from '../stores/gameStore';
 
 const Settle = () => {
-  const { question } = useQuestionStore();
-  const { settle } = useSettleStore();
+  const question = useGameStore((s) => s.question);
+  const settle = useGameStore((s) => s.settle);
 
   const colors = [
     'bg-red-500',
@@ -25,7 +15,9 @@ const Settle = () => {
   ];
   const labels = ['A', 'B', 'C', 'D'];
 
-	return (
+  if (!settle) return null;
+
+  return (
     <div className='flex-4'>
       <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2">
         {question.options.map((opt, index) => (
@@ -33,14 +25,14 @@ const Settle = () => {
             key={labels[index]}
             label={labels[index]}
             text={opt}
-            votes={settle.votes[index]}
-            totalVotes={100}
+            votes={settle.votes[index] ?? 0}
+            totalVotes={settle.totalVotes || 1}
             color={colors[index]}
           />
         ))}
       </div>
     </div>
-	);
+  );
 };
 
 export default Settle;

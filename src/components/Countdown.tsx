@@ -1,33 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { useQuestionStore } from '../stores/gameStore';
-import { useClientStateStore } from '../stores/clientStateStore';
-import { ClientState } from '../types/client-state';
+import { useGameStore } from '../stores/gameStore';
 
 const Countdown = () => {
-  const { question } = useQuestionStore();
+  const votingTime = useGameStore((s) => s.question.votingTime);
   const [second, setSecond] = useState(-1);
 
-  const { setState } = useClientStateStore();
-
   useEffect(() => {
-    if (question.votingTime <= 0) return;
+    if (votingTime <= 0) return;
 
-    setSecond(question.votingTime);
+    setSecond(votingTime);
 
     const timer = setInterval(() => {
       setSecond((prev) => Math.max(prev - 1, -1));
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [question.votingTime]);
-
-  useEffect(() => {
-    if (second === 0) {
-      setState(ClientState.VotingEnded);
-    }
-  }, [second, setState]);
+  }, [votingTime]);
 
   if (second < 0) return null;
 

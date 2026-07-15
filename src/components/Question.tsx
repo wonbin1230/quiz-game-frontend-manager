@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { useQuestionStore } from '../stores/gameStore';
+import { useGameStore } from '../stores/gameStore';
 import { useTypingText } from '../hooks/useTypingText';
 
-interface IProps {
-  question: string,
-}
-
 const Question = () => {
-  const { question } = useQuestionStore();
+  const question = useGameStore((s) => s.question);
   const displayText = useTypingText(
     question.question,
     100

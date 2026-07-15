@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Option from './Option';
 
-import { useQuestionStore } from '../stores/gameStore';
+import { useGameStore } from '../stores/gameStore';
 
 const OptionArea = () => {
-  const { question } = useQuestionStore();
+  const question = useGameStore((s) => s.question);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const colors = [

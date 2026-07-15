@@ -1,18 +1,23 @@
 import React from 'react';
 
-import { useClientStateStore } from '../stores/clientStateStore';
-import { ClientState } from '../types/client-state';
+import { useSessionStore } from '../stores/sessionStore';
+import { useGameStore } from '../stores/gameStore';
+import { SessionState } from '../types/session';
+import { GamePhase } from '../types/game';
 import { StartGame } from '../socket/events/room';
 
 const StartGameButton = () => {
-  const { state } = useClientStateStore();
+  const session = useSessionStore((s) => s.state);
+  const phase = useGameStore((s) => s.phase);
+
+  const canStart = session === SessionState.InRoom && phase === GamePhase.Idle;
 
   return (
     <>
     <div className='flex items-center justify-center'>
       <button
         className='btn btn-soft btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl text-2xl px-6! py-3!'
-        disabled={state !== ClientState.RoomCreated}
+        disabled={!canStart}
         onClick={StartGame}
       >
         開始遊戲

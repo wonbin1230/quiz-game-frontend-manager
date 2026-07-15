@@ -1,13 +1,13 @@
 import { GetSocket } from '../client';
 
-import { IServerCreateRoom, IServerUserJoined, IServerStartGame } from '../../types/server-response';
+import { IServerCreateRoom, IServerUserJoined } from '../../types/server-response';
+import { SessionState } from '../../types/session';
+import { DanmakuSystemType } from '../../types/danmaku';
 
-import { ClientState } from '../../types/client-state';
-import { useClientStateStore } from '../../stores/clientStateStore';
+import { useSessionStore } from '../../stores/sessionStore';
 import { useRoomStore } from '../../stores/roomStore';
 import { usePlayerCountStore, usePlayerListStore } from '../../stores/playerStore';
 import { useDanmakuStore } from '../../stores/danmakuStore';
-import { DanmakuSystemType } from '../../types/danmaku';
 
 export const CreateRoom = () => {
   GetSocket().emit('Room:CreateRoom', { roomName: 'Wedding' });
@@ -15,7 +15,7 @@ export const CreateRoom = () => {
 
 export const OnCreateRoom = () => {
   GetSocket().on('Room:CreateRoom', (data: IServerCreateRoom) => {
-    useClientStateStore.getState().setState(ClientState.RoomCreated);
+    useSessionStore.getState().setState(SessionState.InRoom);
     useRoomStore.getState().setRoomId(data.roomId);
   });
 };

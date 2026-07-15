@@ -1,6 +1,7 @@
 import io, { Socket } from 'socket.io-client';
-import { ClientState } from '../types/client-state';
-import { useClientStateStore } from '../stores/clientStateStore';
+
+import { SessionState } from '../types/session';
+import { useSessionStore } from '../stores/sessionStore';
 import { ManagerLogin } from './events/login';
 
 const socketUrl = `${import.meta.env.VITE_SERVER_SOCKET_URL}:${import.meta.env.VITE_SERVER_SOCKET_PORT}`;
@@ -21,7 +22,7 @@ export const ConnectToServer = () => {
 
   clientIO.on('connect', () => {
     ManagerLogin();
-    useClientStateStore.setState(() => ({ state: ClientState.ServerConnected }));
+    useSessionStore.getState().setState(SessionState.ServerConnected);
     console.log('Connected to server');
   });
 
