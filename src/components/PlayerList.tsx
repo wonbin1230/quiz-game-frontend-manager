@@ -3,6 +3,7 @@ import React from 'react';
 import { usePlayerListStore } from '../stores/playerStore';
 
 import PlayerCount from './PlayerCount';
+import StartGameButton from './StartGameButton';
 
 const MAX_ROWS = 20;
 const MAX_COLS = 10;
@@ -39,6 +40,7 @@ const PlayerList = () => {
 					))}
 				</div>
 			</div>
+			<StartGameButton />
 			<PlayerCount />
 		</div>
 	);

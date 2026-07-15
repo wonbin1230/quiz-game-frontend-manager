@@ -1,6 +1,6 @@
 import { GetSocket } from '../client';
 
-import { IServerCreateRoom, IServerUserJoined } from '../../types/server-response';
+import { IServerCreateRoom, IServerUserJoined, IServerStartGame } from '../../types/server-response';
 
 import { ClientState } from '../../types/client-state';
 import { useClientStateStore } from '../../stores/clientStateStore';
@@ -32,4 +32,8 @@ export const OnUserJoin = () => {
       bonusContent: '',
     });
   });
+};
+
+export const StartGame = () => {
+  GetSocket().emit('Room:StartGame', { roomName: 'Wedding' });
 };

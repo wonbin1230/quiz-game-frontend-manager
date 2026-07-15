@@ -2,14 +2,19 @@ import React, { useEffect } from 'react';
 
 import { useClientStateStore } from '../stores/clientStateStore';
 import { ClientState } from '../types/client-state';
+import { ServerGameState } from '../types/server-response';
+import { useGameStateStore } from '../stores/gameStateStore';
+
 import CreateRoomButton from './CreateRoomButton';
 import Question from './Question';
 import OptionArea from './OptionArea';
 import Countdown from './Countdown';
 import PlayerList from './PlayerList';
+import Settle from './Settle';
 
 const QuizContent = () => {
   const { state } = useClientStateStore();
+  const { state: gameState } = useGameStateStore();
 
   return (
     <>
@@ -19,6 +24,7 @@ const QuizContent = () => {
         { state === ClientState.Voting && <Question/> }
         { state === ClientState.Voting && <OptionArea/> }
         { state === ClientState.Voting && <Countdown/> }
+        { (state === ClientState.VotingEnded && gameState === ServerGameState.Settle) && <Settle/> }
       </div>
     </>
   );

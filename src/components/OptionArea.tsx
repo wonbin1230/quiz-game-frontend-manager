@@ -1,20 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Option from './Option';
 
-import { useQuestionStore } from '../stores/questionStore';
-
-interface IOptionData {
-  label: string,
-  text: string,
-  votes: number,
-}
-
-interface IProps {
-  options: string[],
-}
+import { useQuestionStore } from '../stores/gameStore';
 
 const OptionArea = () => {
   const { question } = useQuestionStore();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const colors = [
     'bg-red-500',
@@ -23,7 +14,17 @@ const OptionArea = () => {
     'bg-green-500',
   ];
   const labels = ['A', 'B', 'C', 'D'];
-  const votes = [10, 20, 60, 10];
+
+  useEffect(() => {
+    const optionCount = question.options.length;
+    if (optionCount === 0) return;
+
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % optionCount);
+    }, 200);
+
+    return () => clearInterval(timer);
+  }, [question.options.length]);
 
 	return (
     <div className='flex-4'>
@@ -33,9 +34,8 @@ const OptionArea = () => {
             key={labels[index]}
             label={labels[index]}
             text={opt}
-            votes={votes[index]}
-            totalVotes={100}
             color={colors[index]}
+            highlighted={index === activeIndex}
           />
         ))}
       </div>

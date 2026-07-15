@@ -329,7 +329,7 @@
                 "maxEOF": 0
             }
         ],
-        "curly": "error",
+        "curly": "off",
         "brace-style": [
             "error",
             "1tbs"

@@ -5,5 +5,6 @@ export enum ClientState {
   RoomCreated = 'RoomCreated',
   GameStarted = 'GameStarted',
   Voting = 'Voting',
+  VotingEnded = 'VotingEnded',
   GameEnded = 'GameEnded'
 }

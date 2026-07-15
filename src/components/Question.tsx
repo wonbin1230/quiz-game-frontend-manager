@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useQuestionStore } from '../stores/questionStore';
+import { useQuestionStore } from '../stores/gameStore';
 import { useTypingText } from '../hooks/useTypingText';
 
 interface IProps {
@@ -16,7 +16,7 @@ const Question = () => {
 
   return (
     <div className='flex-6'>
-      <div className='flex items-center justify-center h-full w-full rounded-lg border-4 border-red-500 text-6xl'>
+      <div className='flex items-center justify-center h-full w-full text-6xl'>
         {displayText}
       </div>
     </div>
