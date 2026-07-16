@@ -3,6 +3,7 @@ export enum GamePhase {
   Lobby = 'Lobby',
   Voting = 'Voting',
   Settle = 'Settle',
+  ShowAnswer = 'ShowAnswer',
   Finished = 'Finished',
 }
 
@@ -18,5 +19,11 @@ export interface ISettleData {
   questionIndex: number,
   votes: number[],
   totalVotes: number,
-  correctAnswer: string,
+  correctAnswer: number,
+}
+
+export interface IAnswerRevealData {
+  questionIndex: number,
+  correctAnswer: number,
+  totalAnswers: number,
 }

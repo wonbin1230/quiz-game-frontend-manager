@@ -51,6 +51,13 @@ interface IAnswerSummary {
 export interface IServerSettle {
   roomId: string,
   questionIndex: number,
-  correctAnswer: string,
+  correctAnswer: number,
   answers: IAnswerSummary[],
+}
+
+export interface IServerAnswerReveal {
+  roomId: string,
+  questionIndex: number,
+  correctAnswer: number,
+  totalAnswers: number,
 }

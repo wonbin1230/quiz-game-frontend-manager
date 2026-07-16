@@ -1,6 +1,11 @@
 import { GetSocket } from '../client';
 
-import { IServerStartGame, IServerGetQuestion, IServerSettle } from '../../types/server-response';
+import {
+  IServerStartGame,
+  IServerGetQuestion,
+  IServerSettle,
+  IServerAnswerReveal,
+} from '../../types/server-response';
 import { GamePhase } from '../../types/game';
 import { useGameStore } from '../../stores/gameStore';
 
@@ -45,6 +50,16 @@ export const OnSettle = () => {
       votes,
       totalVotes: data.answers.length,
       correctAnswer: data.correctAnswer,
+    });
+  });
+};
+
+export const OnAnswerReveal = () => {
+  GetSocket().on('QuizGame:AnswerReveal', (data: IServerAnswerReveal) => {
+    useGameStore.getState().setAnswerReveal({
+      questionIndex: data.questionIndex,
+      correctAnswer: data.correctAnswer,
+      totalAnswers: data.totalAnswers,
     });
   });
 };

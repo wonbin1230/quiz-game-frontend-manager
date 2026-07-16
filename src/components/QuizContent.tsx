@@ -26,7 +26,7 @@ const QuizContent = () => {
         {phase === GamePhase.Voting && <Question />}
         {phase === GamePhase.Voting && <OptionArea />}
         {phase === GamePhase.Voting && <Countdown />}
-        {phase === GamePhase.Settle && <Settle />}
+        {(phase === GamePhase.Settle || phase === GamePhase.ShowAnswer) && <Settle />}
       </div>
     </>
   );

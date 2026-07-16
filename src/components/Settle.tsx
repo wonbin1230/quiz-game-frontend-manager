@@ -6,6 +6,7 @@ import { useGameStore } from '../stores/gameStore';
 const Settle = () => {
   const question = useGameStore((s) => s.question);
   const settle = useGameStore((s) => s.settle);
+  const answerReveal = useGameStore((s) => s.answerReveal);
 
   const colors = [
     'bg-red-500',
@@ -28,6 +29,9 @@ const Settle = () => {
             votes={settle.votes[index] ?? 0}
             totalVotes={settle.totalVotes || 1}
             color={colors[index]}
+            showAnswerStamp={
+              answerReveal !== null && answerReveal.correctAnswer === index
+            }
           />
         ))}
       </div>
