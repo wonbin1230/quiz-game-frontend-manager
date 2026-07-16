@@ -37,3 +37,7 @@ export const OnUserJoin = () => {
 export const StartGame = () => {
   GetSocket().emit('Room:StartGame', { roomName: 'Wedding' });
 };
+
+export const NextQuestion = () => {
+  GetSocket().emit('Room:NextQuestion', { roomName: 'Wedding' });
+};

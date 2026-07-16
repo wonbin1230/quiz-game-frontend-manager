@@ -1,6 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+/** 蓋章動畫總時長（秒），供後續 UI 對齊出現時機 */
+export const ANSWER_STAMP_DURATION = 2.3;
+
 const WoodenStamp = () => (
   <svg
     viewBox="0 0 140 90"
@@ -80,7 +83,7 @@ const AnswerStamp = ({ active }: IAnswerStampProps) => {
         }}
         transition={{
           // 出現 → 停留約 1 秒 → 蓋下 → 抬起
-          duration: 2.3,
+          duration: ANSWER_STAMP_DURATION,
           times: [0, 0.13, 0.57, 0.7, 1],
           ease: ['easeOut', 'linear', 'easeIn', 'easeOut'],
         }}
@@ -98,7 +101,7 @@ const AnswerStamp = ({ active }: IAnswerStampProps) => {
           rotate: [-8, -8, -8, -4, -5],
         }}
         transition={{
-          duration: 2.3,
+          duration: ANSWER_STAMP_DURATION,
           times: [0, 0.13, 0.57, 0.72, 1],
           ease: 'easeOut',
         }}

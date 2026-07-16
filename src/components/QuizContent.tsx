@@ -10,6 +10,7 @@ import OptionArea from './OptionArea';
 import Countdown from './Countdown';
 import PlayerList from './PlayerList';
 import Settle from './Settle';
+import NextQuestionButton from './NextQuestionButton';
 
 const QuizContent = () => {
   const session = useSessionStore((s) => s.state);
@@ -27,6 +28,7 @@ const QuizContent = () => {
         {phase === GamePhase.Voting && <OptionArea />}
         {phase === GamePhase.Voting && <Countdown />}
         {(phase === GamePhase.Settle || phase === GamePhase.ShowAnswer) && <Settle />}
+        <NextQuestionButton />
       </div>
     </>
   );
