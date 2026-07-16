@@ -5,7 +5,6 @@ import { useGameStore } from '../stores/gameStore';
 import { SessionState } from '../types/session';
 import { GamePhase } from '../types/game';
 
-import CreateRoomButton from './CreateRoomButton';
 import Question from './Question';
 import OptionArea from './OptionArea';
 import Countdown from './Countdown';
@@ -23,7 +22,6 @@ const QuizContent = () => {
   return (
     <>
       <div className='relative flex h-full min-h-0 w-[70%] flex-col gap-2 overflow-hidden rounded-xl border-4 border-yellow-400 bg-base-200 p-4 shadow-md'>
-        {session === SessionState.LoggedIn && <CreateRoomButton />}
         {inLobby && <PlayerList />}
         {phase === GamePhase.Voting && <Question />}
         {phase === GamePhase.Voting && <OptionArea />}
