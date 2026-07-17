@@ -33,7 +33,7 @@ const DanmakuOverlay = () => {
                 className="absolute top-1/2 left-0 -translate-y-1/2"
               >
                 <motion.div
-                  className="whitespace-nowrap text-2xl font-semibold text-yellow-200 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"
+                  className="whitespace-nowrap text-lg tracking-[0.2em] text-white/80"
                   initial={{ x: '100vw' }}
                   animate={{ x: '-100%' }}
                   transition={{ duration: DURATION_SEC, ease: 'linear' }}

@@ -8,32 +8,29 @@ const Settle = () => {
   const settle = useGameStore((s) => s.settle);
   const answerReveal = useGameStore((s) => s.answerReveal);
 
-  const colors = [
-    'bg-red-500',
-    'bg-blue-500',
-    'bg-yellow-400',
-    'bg-green-500',
-  ];
   const labels = ['A', 'B', 'C', 'D'];
 
   if (!settle) return null;
 
   return (
-    <div className='flex-4'>
+    <div className='h-full'>
       <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2">
-        {question.options.map((opt, index) => (
-          <SettleOption
-            key={labels[index]}
-            label={labels[index]}
-            text={opt}
-            votes={settle.votes[index] ?? 0}
-            totalVotes={settle.totalVotes || 1}
-            color={colors[index]}
-            showAnswerStamp={
-              answerReveal !== null && answerReveal.correctAnswer === index
-            }
-          />
-        ))}
+        {question.options.map((opt, index) => {
+          const isCorrect =
+            answerReveal !== null && answerReveal.correctAnswer === index;
+
+          return (
+            <SettleOption
+              key={labels[index]}
+              label={labels[index]}
+              text={opt}
+              votes={settle.votes[index] ?? 0}
+              totalVotes={settle.totalVotes || 1}
+              showAnswerStamp={isCorrect}
+              dimmed={answerReveal !== null && !isCorrect}
+            />
+          );
+        })}
       </div>
     </div>
   );

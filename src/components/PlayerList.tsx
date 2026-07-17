@@ -3,16 +3,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { usePlayerListStore } from '../stores/playerStore';
 
 import PlayerCount from './PlayerCount';
-import StartGameButton from './StartGameButton';
+import StartGameButton from './buttons/StartGameButton';
 
 const MAX_ROWS = 20;
 const MAX_COLS = 10;
 const NAME_COLOR = [
-  'text-red-300',
-  'text-green-300',
-  'text-blue-300',
-  'text-yellow-300',
-  'text-purple-300',
+  'text-white',
+  'text-white/80',
+  'text-white/65',
+  'text-white/90',
+  'text-white/70',
 ];
 
 const PlayerList = () => {
@@ -61,19 +61,19 @@ const PlayerList = () => {
 		<div className="flex h-full min-h-0 flex-col gap-2">
 			<div
 				ref={listRef}
-				className="relative min-h-0 flex-1 overflow-y-auto w-full text-xl p-3!"
+				className="relative min-h-0 w-full flex-1 overflow-y-auto p-3! text-base tracking-[0.15em]"
 			>
 				{/* 量測單列高度用，不佔版面 */}
 				<div
 					ref={rowMeasureRef}
-					className="invisible absolute pointer-events-none truncate"
+					className="invisible pointer-events-none absolute truncate"
 					aria-hidden
 				>
 					Ag
 				</div>
 				<div className="flex gap-2">
 					{columns.map((column, colIndex) => (
-						<div key={colIndex} className="flex w-[9.5%] flex-col bg-base-300">
+						<div key={colIndex} className="flex w-[9.5%] flex-col">
 							{column.map((player, rowIndex) => {
 								const playerIndex = colIndex * rowsPerCol + rowIndex;
 								return (
@@ -90,8 +90,10 @@ const PlayerList = () => {
 				</div>
 			</div>
 			<div className="shrink-0 flex flex-col gap-2">
-				<StartGameButton />
 				<PlayerCount />
+				<div className="flex h-14 shrink-0 items-center justify-center">
+					<StartGameButton />
+				</div>
 			</div>
 		</div>
 	);

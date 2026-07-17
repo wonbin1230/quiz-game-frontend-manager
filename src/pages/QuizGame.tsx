@@ -7,7 +7,7 @@ const QuizGame = () => {
   return (
     <>
       <div className='relative flex min-h-screen flex-col'>
-        <Title />
+        {/* <Title /> */}
         <MainContent />
       </div>
     </>

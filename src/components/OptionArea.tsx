@@ -7,12 +7,6 @@ const OptionArea = () => {
   const question = useGameStore((s) => s.question);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const colors = [
-    'bg-red-500',
-    'bg-blue-500',
-    'bg-yellow-400',
-    'bg-green-500',
-  ];
   const labels = ['A', 'B', 'C', 'D'];
 
   useEffect(() => {
@@ -34,7 +28,6 @@ const OptionArea = () => {
             key={labels[index]}
             label={labels[index]}
             text={opt}
-            color={colors[index]}
             highlighted={index === activeIndex}
           />
         ))}

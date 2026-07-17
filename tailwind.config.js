@@ -12,8 +12,5 @@ export default {
 			"2xl": { max: "1536px" },
 		},
 	},
-	plugins: [require("daisyui")],
-    daisyui: {
-        themes: ["night", "light"]
-    }
+	plugins: [],
 };

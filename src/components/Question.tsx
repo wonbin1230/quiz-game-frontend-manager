@@ -12,7 +12,7 @@ const Question = () => {
 
   return (
     <div className='flex-6'>
-      <div className='flex items-center justify-center h-full w-full text-6xl'>
+      <div className='flex h-full w-full items-center justify-center px-4 text-center text-4xl tracking-[0.15em] text-white/90'>
         {displayText}
       </div>
     </div>

@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-import { useGameStore } from '../stores/gameStore';
-import { GamePhase } from '../types/game';
-import { NextQuestion } from '../socket/events/room';
-import { ANSWER_STAMP_DURATION } from './AnswerStamp';
+import { useGameStore } from '../../stores/gameStore';
+import { GamePhase } from '../../types/game';
+import { NextQuestion } from '../../socket/events/room';
+import { ANSWER_STAMP_DURATION } from '../AnswerStamp';
+import GameButton from './GameButton';
 
 const NextQuestionButton = () => {
   const phase = useGameStore((s) => s.phase);
@@ -17,7 +18,7 @@ const NextQuestionButton = () => {
 
   return (
     <motion.div
-      className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+      className="flex justify-center"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
@@ -26,12 +27,9 @@ const NextQuestionButton = () => {
         ease: 'easeOut',
       }}
     >
-      <button
-        className="pointer-events-auto btn btn-soft btn-success btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl text-2xl px-6! py-3!"
-        onClick={NextQuestion}
-      >
+      <GameButton onClick={NextQuestion}>
         繼續往幸福邁進
-      </button>
+      </GameButton>
     </motion.div>
   );
 };

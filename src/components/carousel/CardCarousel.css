@@ -1,0 +1,56 @@
+@keyframes card-carousel-spin {
+  from {
+    transform: perspective(1600px) rotateY(-360deg);
+  }
+  to {
+    transform: perspective(1600px) rotateY(0deg);
+  }
+}
+
+@keyframes card-carousel-brightness {
+  10% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(0.1);
+  }
+  90% {
+    filter: brightness(1);
+  }
+}
+
+.card-carousel {
+  /* 高度相對可用區域，預留底部按鈕空間 */
+  --card-w: clamp(360px, 45vw, 720px);
+  --card-h: clamp(240px, 50%, 520px);
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-inline: auto;
+  transform-style: preserve-3d;
+  transform: perspective(1600px);
+  animation: card-carousel-spin var(--carousel-duration, 20s) linear infinite;
+  will-change: transform;
+}
+
+.card-carousel__card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--card-w);
+  height: var(--card-h);
+  overflow: hidden;
+  border: solid 2px lightgray;
+  border-radius: 0.75rem;
+  background-color: rgb(199, 199, 199);
+  transform-origin: center center;
+  animation: card-carousel-brightness var(--carousel-duration, 20s) linear infinite;
+  will-change: transform, filter;
+}
+
+.card-carousel__card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -4,7 +4,6 @@ import { IServerManagerLogin } from '../../types/server-response';
 import { SessionState } from '../../types/session';
 import { useSessionStore } from '../../stores/sessionStore';
 import { useRoomStore } from '../../stores/roomStore';
-import { CreateRoom } from './room';
 
 export const ManagerLogin = () => {
   GetSocket().emit('Manager:Login', { managerId: 'Yu' });
@@ -21,6 +20,5 @@ export const OnManagerLogin = () => {
     }
 
     useSessionStore.getState().setState(SessionState.LoggedIn);
-    CreateRoom();
   });
 };

@@ -18,10 +18,10 @@ const MainContent = () => {
 
   return (
     <>
-      <div className='relative flex h-[calc(100vh-8rem)] items-center justify-center p-8!'>
+      <div className='relative flex h-screen items-center justify-center p-8!'>
         {showDanmaku && <DanmakuOverlay />}
-        <Picture src='/left.png' alt='left' />
-        <Picture src='/right.png' alt='right' />
+        {/* <Picture src='/left.png' alt='left' /> */}
+        {/* <Picture src='/right.png' alt='right' /> */}
         <QuizContent />
       </div>
     </>
