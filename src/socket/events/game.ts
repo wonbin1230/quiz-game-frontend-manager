@@ -8,6 +8,7 @@ import {
 } from '../../types/server-response';
 import { GamePhase } from '../../types/game';
 import { useGameStore } from '../../stores/gameStore';
+import { useSceneTransitionStore } from '../../stores/enterRoomTransitionStore';
 
 const aggregateVotes = (optionCount: number, answers: { optionIndex: number }[]) => {
   const votes = Array.from({ length: optionCount }, () => 0);
@@ -37,6 +38,7 @@ export const OnGetQuestion = () => {
       votingTime: data.votingTime,
       totalQuestions: data.totalQuestions,
     });
+    useSceneTransitionStore.getState().notifyGameStarted();
   });
 };
 

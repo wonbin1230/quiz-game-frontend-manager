@@ -19,10 +19,15 @@
   }
 }
 
+.card-carousel-shrink-wrap {
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform;
+}
+
 .card-carousel {
-  /* 高度相對可用區域，預留底部按鈕空間 */
-  --card-w: clamp(360px, 45vw, 720px);
-  --card-h: clamp(240px, 50%, 520px);
+  /* --card-w / --card-h 由 JS 依比例寫入，並依容器自動縮放以完整可見 */
   position: relative;
   width: 100%;
   height: 100%;

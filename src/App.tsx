@@ -3,12 +3,16 @@ import { InitializeSocketSystem } from './socket';
 
 import { SessionState } from './types/session';
 import { useSessionStore } from './stores/sessionStore';
+import { useSceneTransitionStore } from './stores/enterRoomTransitionStore';
 
 import './App.css';
 import QuizGame from './pages/QuizGame';
 import LightRays from './components/backgrounds/LightRays';
 import CreateRoomButton from './components/buttons/CreateRoomButton';
 import CardCarousel from './components/carousel/CardCarousel';
+import EnterRoomVeil from './components/transitions/EnterRoomVeil';
+import EnterRoomRevealImage from './components/transitions/EnterRoomRevealImage';
+import StartGameIntro from './components/transitions/StartGameIntro';
 
 /** 進房前輪播照片（public/w1.jpg ~ w8.jpg） */
 const LOBBY_PHOTOS = [
@@ -24,6 +28,21 @@ const LOBBY_PHOTOS = [
 
 const App = () => {
   const session = useSessionStore((s) => s.state);
+  const phase = useSceneTransitionStore((s) => s.phase);
+  const stage = useSceneTransitionStore((s) => s.stage);
+  const transitionId = useSceneTransitionStore((s) => s.transitionId);
+  const coverBeat = useSceneTransitionStore((s) => s.coverBeat);
+
+  const inRoom = session === SessionState.InRoom;
+  // 僅 createRoom covering 仍顯示 lobby；startGame covering 維持房間畫面
+  const createRoomCovering = phase === 'covering' && stage === 'createRoom';
+  const showLobby = !inRoom || createRoomCovering;
+  const showRoom = inRoom && !createRoomCovering;
+
+  const shrinking =
+    transitionId === 'carouselExit' && coverBeat === 'shrink';
+  const showCarousel =
+    transitionId !== 'carouselExit' || coverBeat === 'shrink' || coverBeat === 'none';
 
   useEffect(() => {
     InitializeSocketSystem();
@@ -33,8 +52,8 @@ const App = () => {
     <div className='relative min-h-screen overflow-hidden bg-black'>
       <div className='pointer-events-none absolute inset-0 z-0'>
         <LightRays
-          raysOrigin="top-center"
-          raysColor="#ffffff"
+          raysOrigin='top-center'
+          raysColor='#ffffff'
           raysSpeed={1}
           lightSpread={2}
           rayLength={3}
@@ -42,24 +61,29 @@ const App = () => {
           mouseInfluence={0}
           noiseAmount={0}
           distortion={0}
-          className="custom-rays"
+          className='custom-rays'
           fadeDistance={2}
           saturation={2}
         />
       </div>
-      {session === SessionState.InRoom ? (
+
+      {showRoom ? (
         <div className='relative z-10 p-4'>
           <QuizGame />
         </div>
-      ) : (
+      ) : showLobby ? (
         /* 外層與 InRoom（QuizGame → MainContent → QuizContent）完全相同，確保按鈕座標一致 */
         <div className='relative z-10 p-4'>
           <div className='relative flex min-h-screen flex-col'>
             <div className='relative flex h-screen items-center justify-center p-8!'>
-              {/* 全寬幻燈片：垂直範圍避開與 PlayerList 相同的底部按鈕列 */}
-              <div className='pointer-events-none absolute inset-x-0 top-8 bottom-[calc(2rem+1rem+0.5rem+3.5rem)]'>
-                <CardCarousel images={LOBBY_PHOTOS} />
-              </div>
+              {showCarousel && (
+                <div className='pointer-events-none absolute inset-x-0 top-8 bottom-[calc(2rem+1rem+0.5rem+3.5rem)]'>
+                  <CardCarousel
+                    images={LOBBY_PHOTOS}
+                    exitMode={shrinking ? 'shrink' : 'none'}
+                  />
+                </div>
+              )}
 
               <div className='relative flex h-full min-h-0 w-[70%] flex-col gap-2 overflow-hidden p-4'>
                 <div className='flex h-full min-h-0 flex-col gap-2'>
@@ -74,7 +98,12 @@ const App = () => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
+
+      <EnterRoomRevealImage />
+      {/* 面紗元件保留；僅在 TRANSITION_BY_STAGE 選 veil 時會顯示 */}
+      <EnterRoomVeil />
+      <StartGameIntro />
     </div>
   );
 };
