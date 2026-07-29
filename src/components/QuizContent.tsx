@@ -10,6 +10,7 @@ import OptionArea from './OptionArea';
 import Countdown from './Countdown';
 import PlayerList from './PlayerList';
 import Settle from './Settle';
+import ShowRanking from './ShowRanking';
 import NextQuestionButton from './buttons/NextQuestionButton';
 
 const QuizContent = () => {
@@ -22,6 +23,9 @@ const QuizContent = () => {
 
   const inSettle =
     phase === GamePhase.Settle || phase === GamePhase.ShowAnswer;
+
+  const inRanking =
+    phase === GamePhase.ShowRanking || phase === GamePhase.Finished;
 
   return (
     <>
@@ -40,6 +44,7 @@ const QuizContent = () => {
             </div>
           </div>
         )}
+        {inRanking && <ShowRanking />}
       </div>
     </>
   );

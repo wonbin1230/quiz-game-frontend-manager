@@ -5,6 +5,7 @@ import {
   IServerGetQuestion,
   IServerSettle,
   IServerAnswerReveal,
+  IServerShowRanking,
 } from '../../types/server-response';
 import { GamePhase } from '../../types/game';
 import { useGameStore } from '../../stores/gameStore';
@@ -63,5 +64,17 @@ export const OnAnswerReveal = () => {
       correctAnswer: data.correctAnswer,
       totalAnswers: data.totalAnswers,
     });
+  });
+};
+
+export const OnShowRanking = () => {
+  GetSocket().on('QuizGame:ShowRanking', (data: IServerShowRanking) => {
+    useGameStore.getState().setRankings(data.rankings);
+  });
+};
+
+export const OnFinished = () => {
+  GetSocket().on('QuizGame:Finished', () => {
+    useGameStore.getState().setPhase(GamePhase.Finished);
   });
 };

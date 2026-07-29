@@ -62,3 +62,7 @@ export const StartGame = () => {
 export const NextQuestion = () => {
   GetSocket().emit('Room:NextQuestion', { roomName: 'Wedding' });
 };
+
+export const FinishGame = () => {
+  GetSocket().emit('Room:FinishGame', { roomName: 'Wedding' });
+};

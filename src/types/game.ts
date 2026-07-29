@@ -4,6 +4,7 @@ export enum GamePhase {
   Voting = 'Voting',
   Settle = 'Settle',
   ShowAnswer = 'ShowAnswer',
+  ShowRanking = 'ShowRanking',
   Finished = 'Finished',
 }
 
@@ -26,4 +27,11 @@ export interface IAnswerRevealData {
   questionIndex: number,
   correctAnswer: number,
   totalAnswers: number,
+}
+
+export interface IRankingEntry {
+  userId: string,
+  rank: number,
+  correctCount: number,
+  totalTime: number,
 }

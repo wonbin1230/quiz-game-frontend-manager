@@ -10,6 +10,7 @@ export enum ServerGameState {
   Voting = 'Voting',
   Settle = 'Settle',
   ShowAnswer = 'ShowAnswer',
+  ShowRanking = 'ShowRanking',
   Waiting = 'Waiting',
   Finished = 'Finished',
 }
@@ -60,4 +61,22 @@ export interface IServerAnswerReveal {
   questionIndex: number,
   correctAnswer: number,
   totalAnswers: number,
+}
+
+export interface IServerRankingEntry {
+  userId: string,
+  rank: number,
+  correctCount: number,
+  totalTime: number,
+}
+
+export interface IServerShowRanking {
+  roomId: string,
+  rankings: IServerRankingEntry[],
+}
+
+export interface IServerFinishGame {
+  roomId: string,
+  roomState: ServerRoomState,
+  gameState: ServerGameState,
 }

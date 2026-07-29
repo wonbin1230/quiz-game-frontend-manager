@@ -14,7 +14,7 @@ const NextQuestionButton = () => {
 
   const isLastQuestion = questionIndex >= totalQuestions - 1;
 
-  if (phase !== GamePhase.ShowAnswer || isLastQuestion) return null;
+  if (phase !== GamePhase.ShowAnswer) return null;
 
   return (
     <motion.div
@@ -28,7 +28,7 @@ const NextQuestionButton = () => {
       }}
     >
       <GameButton onClick={NextQuestion}>
-        繼續往幸福邁進
+        {isLastQuestion ? '抵達幸福' : '繼續往幸福邁進'}
       </GameButton>
     </motion.div>
   );
