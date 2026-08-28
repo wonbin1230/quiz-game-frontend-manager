@@ -1,6 +1,6 @@
 import { ConnectToServer } from './client';
 import { OnManagerLogin } from './events/login';
-import { OnCreateRoom, OnUserJoin } from './events/room';
+import { OnCreateRoom, OnUserJoin, OnUserLeft } from './events/room';
 import {
   OnGameStarted,
   OnGetQuestion,
@@ -18,6 +18,7 @@ export const InitializeSocketSystem = () => {
   OnManagerLogin();
   OnCreateRoom();
   OnUserJoin();
+  OnUserLeft();
 
   // Game Events
   OnGameStarted();

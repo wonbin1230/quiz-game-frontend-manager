@@ -11,6 +11,9 @@ const formatText = (sender: string, systemType: DanmakuSystemType, content: stri
   if (systemType === DanmakuSystemType.PlayerJoin) {
     return `${sender} ${content || '已加入房間'}`;
   }
+  if (systemType === DanmakuSystemType.PlayerLeave) {
+    return `${sender} ${content || '已離開房間'}`;
+  }
   return content ? `${sender} ${content}` : sender;
 };
 

@@ -27,6 +27,14 @@ export interface IServerUserJoined {
   userId: string,
   userList: string[],
   userCount: number,
+  disconnectedUserIds: string[],
+}
+
+export interface IServerUserLeft {
+  userId: string,
+  userList: string[],
+  userCount: number,
+  disconnectedUserIds: string[],
 }
 
 export interface IServerStartGame {

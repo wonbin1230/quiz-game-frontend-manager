@@ -1,5 +1,6 @@
 export enum DanmakuSystemType {
   PlayerJoin = 'PlayerJoin',
+  PlayerLeave = 'PlayerLeave',
   WishingContent = 'WishingContent',
 }
 
