@@ -16,14 +16,14 @@ import StartGameIntro from './components/transitions/StartGameIntro';
 
 /** 進房前輪播照片（public/w1.jpg ~ w8.jpg） */
 const LOBBY_PHOTOS = [
-  '/w1.jpg',
-  '/w2.jpg',
-  '/w3.jpg',
-  '/w4.jpg',
-  '/w5.jpg',
-  '/w6.jpg',
-  '/w7.jpg',
-  '/w8.jpg',
+  `${import.meta.env.BASE_URL}w1.jpg`,
+  `${import.meta.env.BASE_URL}w2.jpg`,
+  `${import.meta.env.BASE_URL}w3.jpg`,
+  `${import.meta.env.BASE_URL}w4.jpg`,
+  `${import.meta.env.BASE_URL}w5.jpg`,
+  `${import.meta.env.BASE_URL}w6.jpg`,
+  `${import.meta.env.BASE_URL}w7.jpg`,
+  `${import.meta.env.BASE_URL}w8.jpg`,
 ];
 
 const App = () => {

@@ -76,7 +76,7 @@ const EnterRoomRevealImage = () => {
     >
       <motion.img
         ref={imgRef}
-        src='/yuyu.png'
+        src={`${import.meta.env.BASE_URL}yuyu.png`}
         alt=''
         draggable={false}
         className='max-h-[70vh] w-[min(60vw,520px)] object-contain'
