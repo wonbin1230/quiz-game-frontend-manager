@@ -12,7 +12,7 @@ const NextQuestionButton = () => {
   const questionIndex = useGameStore((s) => s.question.questionIndex);
   const totalQuestions = useGameStore((s) => s.question.totalQuestions);
 
-  const isLastQuestion = questionIndex >= totalQuestions - 1;
+  const isLastQuestion = questionIndex >= totalQuestions;
 
   if (phase !== GamePhase.ShowAnswer) return null;
 
