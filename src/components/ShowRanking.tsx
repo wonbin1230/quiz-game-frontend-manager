@@ -50,6 +50,9 @@ const PodiumCard = ({
   );
 };
 
+const listGridClass =
+  'grid grid-cols-[3.25rem_8rem_4.75rem_5.75rem] items-center gap-x-20 text-center';
+
 const RankingRow = ({
   entry,
   index,
@@ -58,15 +61,15 @@ const RankingRow = ({
   index: number,
 }) => (
   <motion.div
-    className="grid grid-cols-[3rem_1fr_4.5rem_6rem] items-center gap-3 border-b border-white/10 py-2.5 text-base tracking-[0.12em] text-white/75"
+    className={`${listGridClass} border-b border-white/10 py-2.5 text-base tracking-[0.12em] text-white/75`}
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.45 + index * 0.05, duration: 0.4, ease: 'easeOut' }}
   >
     <span className="text-white/90">{entry.rank}</span>
     <span className="truncate text-white/85">{entry.userId}</span>
-    <span className="text-right text-white/60">{entry.correctCount} 題</span>
-    <span className="text-right text-white/60">{formatTime(entry.totalTime)}</span>
+    <span className="text-white/60">{entry.correctCount} 題</span>
+    <span className="text-white/60">{formatTime(entry.totalTime)}</span>
   </motion.div>
 );
 
@@ -108,12 +111,12 @@ const ShowRanking = () => {
         </div>
 
         {listEntries.length > 0 && (
-          <div className="mx-auto w-full max-w-3xl">
-            <div className="grid grid-cols-[3rem_1fr_4.5rem_6rem] gap-3 border-b border-white/20 pb-2 text-sm tracking-[0.2em] text-white/45">
+          <div className="w-fit self-center">
+            <div className={`${listGridClass} border-b border-white/20 pb-2 text-sm tracking-[0.2em] text-white/45`}>
               <span>名次</span>
               <span>玩家</span>
-              <span className="text-right">答對</span>
-              <span className="text-right">時間</span>
+              <span>答對</span>
+              <span>時間</span>
             </div>
             {listEntries.map((entry, index) => (
               <RankingRow
