@@ -7,7 +7,7 @@ export const ANSWER_STAMP_DURATION = 2.3;
 const WoodenStamp = () => (
   <svg
     viewBox="0 0 140 90"
-    className="h-20 w-32 drop-shadow-lg"
+    className="h-16 w-24 drop-shadow-lg"
     aria-hidden
   >
     {/* handle tip */}
@@ -42,22 +42,23 @@ const WoodenStamp = () => (
 );
 
 const SealMark = () => (
-  <div className="relative flex h-14 w-44 items-center justify-center px-2">
+  <div className="relative flex h-9 w-[4.25rem] items-center justify-center">
     <div
-      className="absolute inset-0 rounded-md border-[4px] border-red-700/90"
+      className="absolute inset-0 rounded-[3px] border-[3px] border-red-500"
       style={{
-        boxShadow: 'inset 0 0 0 2px rgba(185, 28, 28, 0.35)',
+        boxShadow:
+          'inset 0 0 0 1px rgba(248, 113, 113, 0.5), 0 0 10px rgba(239, 68, 68, 0.55)',
       }}
     />
-    <div className="absolute inset-1.5 rounded-sm border-2 border-red-600/50" />
+    <div className="absolute inset-[5px] rounded-[1px] border border-red-400/80" />
     <span
-      className="relative whitespace-nowrap text-2xl font-black tracking-[0.2em] text-red-700"
+      className="relative whitespace-nowrap text-[15px] font-black leading-none tracking-[0.12em] text-red-400"
       style={{
         fontFamily: '"Noto Serif TC", "Songti TC", "SimSun", serif',
-        textShadow: '0 1px 0 rgba(127, 29, 29, 0.35)',
+        textShadow: '0 0 8px rgba(248, 113, 113, 0.65)',
       }}
     >
-      正確答案
+      正確
     </span>
   </div>
 );
@@ -67,47 +68,51 @@ interface IAnswerStampProps {
 }
 
 const AnswerStamp = ({ active }: IAnswerStampProps) => {
-  if (!active) return null;
+  if (!active) {
+    return null;
+  }
 
   return (
     <div className="pointer-events-none absolute inset-0 z-20 overflow-visible">
-      {/* wooden stamp */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[70%]"
-        initial={{ opacity: 0, y: -56, scale: 1.15, rotate: -12 }}
-        animate={{
-          opacity: [0, 1, 1, 1, 0],
-          y: [-56, -28, -28, 8, -72],
-          scale: [1.15, 1, 1, 0.92, 1.05],
-          rotate: [-12, -8, -8, -2, -10],
-        }}
-        transition={{
-          // 出現 → 停留約 1 秒 → 蓋下 → 抬起
-          duration: ANSWER_STAMP_DURATION,
-          times: [0, 0.13, 0.57, 0.7, 1],
-          ease: ['easeOut', 'linear', 'easeIn', 'easeOut'],
-        }}
-      >
-        <WoodenStamp />
-      </motion.div>
+      <div className="absolute right-2 top-2">
+        {/* wooden stamp */}
+        <motion.div
+          className="absolute left-1/2 top-0"
+          initial={{ opacity: 0, x: '-50%', y: -72, scale: 1.08, rotate: -18 }}
+          animate={{
+            opacity: [0, 1, 1, 1, 0],
+            x: '-50%',
+            y: [-88, -70, -70, -38, -96],
+            scale: [1.08, 0.95, 0.95, 0.86, 1],
+            rotate: [-18, -14, -14, -10, -16],
+          }}
+          transition={{
+            // 出現 → 停留約 1 秒 → 蓋下 → 抬起
+            duration: ANSWER_STAMP_DURATION,
+            times: [0, 0.13, 0.57, 0.7, 1],
+            ease: ['easeOut', 'linear', 'easeIn', 'easeOut'],
+          }}
+        >
+          <WoodenStamp />
+        </motion.div>
 
-      {/* seal imprint */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        initial={{ opacity: 0, scale: 1.35, rotate: -8 }}
-        animate={{
-          opacity: [0, 0, 0, 0.88, 0.92],
-          scale: [1.35, 1.35, 1.35, 0.94, 1],
-          rotate: [-8, -8, -8, -4, -5],
-        }}
-        transition={{
-          duration: ANSWER_STAMP_DURATION,
-          times: [0, 0.13, 0.57, 0.72, 1],
-          ease: 'easeOut',
-        }}
-      >
-        <SealMark />
-      </motion.div>
+        {/* seal imprint */}
+        <motion.div
+          initial={{ opacity: 0, scale: 1.35, rotate: -18 }}
+          animate={{
+            opacity: [0, 0, 0, 0.94, 1],
+            scale: [1.35, 1.35, 1.35, 0.92, 1],
+            rotate: [-18, -18, -18, -10, -12],
+          }}
+          transition={{
+            duration: ANSWER_STAMP_DURATION,
+            times: [0, 0.13, 0.57, 0.72, 1],
+            ease: 'easeOut',
+          }}
+        >
+          <SealMark />
+        </motion.div>
+      </div>
     </div>
   );
 };

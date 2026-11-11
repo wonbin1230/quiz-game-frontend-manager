@@ -7,7 +7,7 @@
  *    - 'veil'           儀式感面紗（soft flash + 左右揭開）
  *    - 'none'           無轉場，直接切畫面
  * 2. 改 TRANSITION_BY_STAGE.startGame
- *    - 'startGameIntro' 變黑 → 打字 → 停頓 → emit → 等 GameStarted → 淡出
+ *    - 'startGameIntro' 收到 GameStarted → 變黑 → 打字 → 停頓 → 等第一題 → 淡出
  *    - 'veil' | 'none'  等同 createRoom 可用選項
  */
 

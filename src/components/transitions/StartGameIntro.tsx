@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { useSceneTransitionStore } from '../../stores/enterRoomTransitionStore';
 import { TRANSITION_PRESETS } from '../../transitions/config';
 import { useStagedTypingText } from '../../hooks/useStagedTypingText';
-import { EmitStartGame } from '../../socket/events/room';
 
 const {
   fadeInSec,
@@ -19,7 +18,7 @@ const {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * StartGame 過場：變黑 → 打字 → 停 1s → emit → 等 GameStarted → 淡出
+ * StartGame 過場：收到 GameStarted 後變黑 → 打字 → 停頓 → 等第一題 → 淡出
  * 是否啟用：TRANSITION_BY_STAGE.startGame = 'startGameIntro'
  */
 const StartGameIntro = () => {
@@ -45,7 +44,6 @@ const StartGameIntro = () => {
     const state = useSceneTransitionStore.getState();
     if (state.transitionId !== 'startGameIntro') return;
     if (state.phase !== 'covering' || state.coverBeat !== 'typing') return;
-    EmitStartGame();
     markPerformanceDone();
   };
 
