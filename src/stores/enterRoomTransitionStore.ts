@@ -26,9 +26,9 @@ interface SceneTransitionStore {
   transitionId: TransitionId | null,
   coverBeat: CoverBeat,
   play: (stage: TransitionStage) => void,
-  /** 開局打字＋停頓結束（由 StartGameIntro 呼叫；隨後才 emit） */
+  /** 開局打字＋停頓結束 */
   markPerformanceDone: () => void,
-  /** 收到 QuizGame:GameStarted */
+  /** 第一題到達，開局過場淡出 */
   notifyGameStarted: () => void,
   startReveal: () => void,
   finish: () => void,
@@ -81,7 +81,7 @@ export const useSceneTransitionStore = create<SceneTransitionStore>((set, get) =
       return;
     }
 
-    // 開局：變黑 → 打字 → 停頓 → emit → 等 GameStarted → 淡出
+    // 開局：收到 GameStarted 後變黑 → 打字 → 停頓 → 等第一題 → 淡出
     if (transitionId === 'startGameIntro' && 'fadeInSec' in preset) {
       set({
         phase: 'covering',

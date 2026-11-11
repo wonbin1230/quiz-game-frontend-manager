@@ -30,13 +30,12 @@ export const SettleOption = ({
 					: 'overflow-hidden border-white/25'
 			} ${dimmed ? 'opacity-45' : 'opacity-100'}`}
 		>
-			{/* 上層：標籤 + 選項文字 */}
-			<div className="relative z-10 flex min-h-0 flex-1 items-start gap-3">
-				<div className="shrink-0 text-3xl font-semibold tracking-[0.2em] text-white">
+			<div className="relative z-10 grid min-h-0 flex-1 grid-cols-[40px_1fr] content-center items-center">
+				<div className="flex items-center justify-center text-3xl font-semibold tracking-[0.2em] text-white">
 					{label}
 				</div>
-				<div className="min-w-0 flex-1 text-left text-2xl leading-snug tracking-[0.08em] text-white/80">
-					{text}
+				<div className="flex items-center justify-center text-center text-2xl leading-snug tracking-[0.08em] text-white/80">
+					<span className="block">{text}</span>
 				</div>
 			</div>
 

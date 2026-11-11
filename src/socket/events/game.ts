@@ -10,6 +10,8 @@ import {
 import { GamePhase } from '../../types/game';
 import { useGameStore } from '../../stores/gameStore';
 import { useSceneTransitionStore } from '../../stores/enterRoomTransitionStore';
+import { TRANSITION_BY_STAGE } from '../../transitions/config';
+import { clearStartGamePending } from './room';
 
 const aggregateVotes = (optionCount: number, answers: { optionIndex: number }[]) => {
   const votes = Array.from({ length: optionCount }, () => 0);
@@ -27,6 +29,12 @@ export const OnGameStarted = () => {
   GetSocket().on('QuizGame:GameStarted', (data: IServerStartGame) => {
     useGameStore.getState().setQuizCount(data.quizCount);
     useGameStore.getState().setPhase(GamePhase.Lobby);
+    clearStartGamePending();
+
+    if (TRANSITION_BY_STAGE.startGame !== 'startGameIntro') return;
+    const transition = useSceneTransitionStore.getState();
+    if (transition.transitionId === 'startGameIntro' && transition.phase !== 'idle') return;
+    transition.play('startGame');
   });
 };
 

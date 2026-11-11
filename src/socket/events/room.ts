@@ -13,6 +13,13 @@ import { useGameStore } from '../../stores/gameStore';
 import { useSceneTransitionStore } from '../../stores/enterRoomTransitionStore';
 import { TRANSITION_BY_STAGE } from '../../transitions/config';
 
+/** startGameIntro 按下後、GameStarted 回來前，避免連點重送 */
+let startGamePending = false;
+
+export const clearStartGamePending = () => {
+  startGamePending = false;
+};
+
 /** Prepare 改名：Left 後極短時間內會接到 Joined。超過此時窗才當成真離房。 */
 const RENAME_MATCH_MS = 200;
 
@@ -116,19 +123,25 @@ export const OnUserLeft = () => {
   });
 };
 
-/** 送出開始遊戲（startGameIntro 在表演結束後才呼叫） */
+/** 送出開始遊戲 */
 export const EmitStartGame = () => {
   GetSocket().emit('Room:StartGame', { roomName: 'Wedding' });
 };
 
-/** 按下開始：先播轉場；startGameIntro 會在表演完再 EmitStartGame */
+/**
+ * 按下開始就送出。
+ * startGameIntro 等 QuizGame:GameStarted 再播，與 Client 同一時刻起跑。
+ */
 export const StartGame = () => {
   const { phase } = useSceneTransitionStore.getState();
   if (phase !== 'idle') return;
 
   const transitionId = TRANSITION_BY_STAGE.startGame;
   if (transitionId === 'startGameIntro') {
-    useSceneTransitionStore.getState().play('startGame');
+    if (startGamePending) return;
+    if (useGameStore.getState().phase !== GamePhase.Idle) return;
+    startGamePending = true;
+    EmitStartGame();
     return;
   }
 
