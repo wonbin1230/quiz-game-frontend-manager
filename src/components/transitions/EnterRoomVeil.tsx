@@ -10,8 +10,8 @@ import { TRANSITION_PRESETS } from '../../transitions/config';
  * glow: 中心柔光
  */
 export const ENTER_ROOM_VEIL_COLORS = {
-  color: '#faf3e4',
-  glow: 'rgba(255, 236, 200, 0.95)',
+  color: '#fbf6ef',
+  glow: 'rgba(231, 180, 190, 0.92)',
 } as const;
 
 const ROMANTIC_EASE = [0.22, 1, 0.36, 1] as const;

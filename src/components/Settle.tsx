@@ -14,7 +14,7 @@ const Settle = () => {
 
   return (
     <div className='h-full'>
-      <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2">
+      <div className="grid h-full w-full grid-cols-2 grid-rows-2 gap-2 overflow-visible">
         {question.options.map((opt, index) => {
           const isCorrect =
             answerReveal !== null && answerReveal.correctAnswer === index;

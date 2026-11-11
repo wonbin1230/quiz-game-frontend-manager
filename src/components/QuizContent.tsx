@@ -7,7 +7,6 @@ import { GamePhase } from '../types/game';
 
 import Question from './Question';
 import OptionArea from './OptionArea';
-import Countdown from './Countdown';
 import PlayerList from './PlayerList';
 import Settle from './Settle';
 import ShowRanking from './ShowRanking';
@@ -29,13 +28,12 @@ const QuizContent = () => {
 
   return (
     <>
-      <div className='relative flex h-full min-h-0 w-[70%] flex-col gap-2 overflow-hidden p-4'>
+      <div className={`relative flex h-full min-h-0 w-[70%] flex-col gap-2 p-4 ${inSettle ? 'overflow-visible' : 'overflow-hidden'}`}>
         {inLobby && <PlayerList />}
         {phase === GamePhase.Voting && <Question />}
         {phase === GamePhase.Voting && <OptionArea />}
-        {phase === GamePhase.Voting && <Countdown />}
         {inSettle && (
-          <div className='flex min-h-0 flex-1 flex-col gap-6'>
+          <div className='flex min-h-0 flex-1 flex-col gap-6 pt-10'>
             <div className='min-h-0 flex-1'>
               <Settle />
             </div>

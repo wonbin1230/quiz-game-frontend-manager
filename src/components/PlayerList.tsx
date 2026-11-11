@@ -8,11 +8,11 @@ import StartGameButton from './buttons/StartGameButton';
 const MAX_ROWS = 20;
 const MAX_COLS = 10;
 const NAME_COLOR = [
-  'text-white',
-  'text-white/80',
-  'text-white/65',
-  'text-white/90',
-  'text-white/70',
+  'text-ink',
+  'text-gold',
+  'text-ink/70',
+  'text-rose',
+  'text-ink/85',
 ];
 
 const PlayerList = () => {
@@ -61,7 +61,7 @@ const PlayerList = () => {
 		<div className="flex h-full min-h-0 flex-col gap-2">
 			<div
 				ref={listRef}
-				className="relative min-h-0 w-full flex-1 overflow-y-auto p-3! text-base tracking-[0.15em]"
+				className="relative min-h-0 w-full flex-1 overflow-y-auto p-3! text-base font-bold tracking-[0.15em]"
 			>
 				{/* 量測單列高度用，不佔版面 */}
 				<div

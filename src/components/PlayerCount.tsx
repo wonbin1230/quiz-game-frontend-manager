@@ -6,9 +6,9 @@ const PlayerCount = () => {
   const { count } = usePlayerCountStore();
 
   return (
-    <div className='flex w-full items-center justify-center text-lg tracking-[0.35em] text-white/80'>
+    <div className='flex w-full items-center justify-center text-lg font-bold tracking-[0.35em] text-ink/80'>
       目前參加人數：
-      <span className='font-semibold tracking-normal text-white'>{count}</span>
+      <span className='font-bold tracking-normal text-gold'>{count}</span>
     </div>
   );
 };

@@ -22,15 +22,15 @@ const Countdown = () => {
   if (second < 0) return null;
 
   return (
-    <div className='pointer-events-none absolute inset-x-0 flex justify-center'>
+    <div className='pointer-events-none flex justify-center'>
       {second > 10 ? (
-        <span className='text-7xl font-light tracking-[0.2em] text-white/50'>
+        <span className='text-7xl font-light tracking-[0.2em] text-ink/45'>
           {second}
         </span>
       ) : (
         <AnimatePresence mode='wait'>
           <motion.span
-            className='text-7xl font-light tracking-[0.2em] text-white'
+            className='text-7xl font-light tracking-[0.2em] text-gold'
             key={second}
             initial={{ opacity: 0 }}
             animate={{ scale: [2.4, 1], opacity: [0.35, 1] }}

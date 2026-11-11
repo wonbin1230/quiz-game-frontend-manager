@@ -12,7 +12,7 @@
     filter: brightness(1);
   }
   50% {
-    filter: brightness(0.1);
+    filter: brightness(0.78);
   }
   90% {
     filter: brightness(1);
@@ -45,9 +45,10 @@
   width: var(--card-w);
   height: var(--card-h);
   overflow: hidden;
-  border: solid 2px lightgray;
-  border-radius: 0.75rem;
-  background-color: rgb(199, 199, 199);
+  border: solid 3px #f3d5d4;
+  border-radius: 1.15rem;
+  background-color: #f7f1ea;
+  box-shadow: 0 0 0 2px #e7c9a4;
   transform-origin: center center;
   animation: card-carousel-brightness var(--carousel-duration, 20s) linear infinite;
   will-change: transform, filter;

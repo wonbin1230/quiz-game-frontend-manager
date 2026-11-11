@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&display=swap);
+@import url(https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&display=swap);
 @import "tailwindcss/preflight"
 @tailwind utilities;
 
@@ -6,12 +6,14 @@
 	margin: 0;
   padding: 0;
 	box-sizing: border-box;
-	font-family: "poppins", sans-serif;
+	font-family: "Noto Serif TC", "Songti TC", serif;
 }
 
 body {
 	overflow-x: hidden;
   overflow-y: hidden;
+	background: #fbf6ef;
+	color: #4e463f;
 }
 
 @media(max-width: 430px) {

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useGameStore } from '../../stores/gameStore';
 import { GamePhase } from '../../types/game';
 import { NextQuestion } from '../../socket/events/room';
-import { ANSWER_STAMP_DURATION } from '../AnswerStamp';
+import { ANSWER_ROSE_DURATION } from '../AnswerRose';
 import GameButton from './GameButton';
 
 const NextQuestionButton = () => {
@@ -22,7 +22,7 @@ const NextQuestionButton = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{
-        delay: ANSWER_STAMP_DURATION,
+        delay: ANSWER_ROSE_DURATION,
         duration: 1,
         ease: 'easeOut',
       }}

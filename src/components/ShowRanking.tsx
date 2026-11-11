@@ -10,9 +10,9 @@ const formatTime = (totalTime: number) => `${totalTime.toFixed(2)}s`;
 const podiumOrder = [1, 0, 2] as const;
 
 const podiumStyle = [
-  { height: 'h-36', nameSize: 'text-2xl', rankSize: 'text-5xl', opacity: 'text-white' },
-  { height: 'h-28', nameSize: 'text-xl', rankSize: 'text-4xl', opacity: 'text-white/85' },
-  { height: 'h-24', nameSize: 'text-lg', rankSize: 'text-3xl', opacity: 'text-white/75' },
+  { height: 'h-36', nameSize: 'text-2xl', rankSize: 'text-5xl', opacity: 'text-ink' },
+  { height: 'h-28', nameSize: 'text-xl', rankSize: 'text-4xl', opacity: 'text-ink/85' },
+  { height: 'h-24', nameSize: 'text-lg', rankSize: 'text-3xl', opacity: 'text-ink/75' },
 ] as const;
 
 const PodiumCard = ({
@@ -36,13 +36,13 @@ const PodiumCard = ({
         <div className={`mt-2 truncate ${style.nameSize} tracking-[0.15em]`}>
           {entry.userId}
         </div>
-        <div className="mt-2 text-sm tracking-[0.12em] text-white/55">
+        <div className="mt-2 text-sm tracking-[0.12em] text-ink/55">
           {entry.correctCount} 題 · {formatTime(entry.totalTime)}
         </div>
       </div>
       <div
         className={[
-          'w-full rounded-sm border border-white/25 bg-white/5 backdrop-blur-sm',
+          'w-full rounded-xl border border-blush/80 bg-white/70 backdrop-blur-sm',
           style.height,
         ].join(' ')}
       />
@@ -61,15 +61,15 @@ const RankingRow = ({
   index: number,
 }) => (
   <motion.div
-    className={`${listGridClass} border-b border-white/10 py-2.5 text-base tracking-[0.12em] text-white/75`}
+    className={`${listGridClass} border-b border-gold/35 py-2.5 text-base tracking-[0.12em] text-ink/75`}
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay: 0.45 + index * 0.05, duration: 0.4, ease: 'easeOut' }}
   >
-    <span className="text-white/90">{entry.rank}</span>
-    <span className="truncate text-white/85">{entry.userId}</span>
-    <span className="text-white/60">{entry.correctCount} 題</span>
-    <span className="text-white/60">{formatTime(entry.totalTime)}</span>
+    <span className="text-ink/90">{entry.rank}</span>
+    <span className="truncate text-ink/85">{entry.userId}</span>
+    <span className="text-ink/60">{entry.correctCount} 題</span>
+    <span className="text-ink/60">{formatTime(entry.totalTime)}</span>
   </motion.div>
 );
 
@@ -86,7 +86,7 @@ const ShowRanking = () => {
   return (
     <div className="flex h-full min-h-0 w-full flex-col gap-6">
       <motion.div
-        className="shrink-0 text-center text-3xl tracking-[0.35em] text-white/90"
+        className="shrink-0 text-center text-3xl tracking-[0.35em] text-gold"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -112,7 +112,7 @@ const ShowRanking = () => {
 
         {listEntries.length > 0 && (
           <div className="w-fit self-center">
-            <div className={`${listGridClass} border-b border-white/20 pb-2 text-sm tracking-[0.2em] text-white/45`}>
+            <div className={`${listGridClass} border-b border-gold/45 pb-2 text-sm tracking-[0.2em] text-ink/55`}>
               <span>名次</span>
               <span>玩家</span>
               <span>答對</span>
@@ -134,7 +134,7 @@ const ShowRanking = () => {
           <FinishGameButton />
         ) : (
           <motion.div
-            className="text-lg tracking-[0.3em] text-white/50"
+            className="text-lg tracking-[0.3em] text-ink/50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

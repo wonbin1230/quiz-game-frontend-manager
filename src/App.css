@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+/* 喜帖：奶油紙、金棕、裸粉、淡紫 */
+@theme {
+	--color-paper: #fbf6ef;
+	--color-ink: #4e463f;
+	--color-gold: #9a7344;
+	--color-blush: #e7b4be;
+	--color-rose: #a56b78;
+	--color-lilac: #cbb6dc;
+}

@@ -8,10 +8,13 @@ import { useSceneTransitionStore } from './stores/enterRoomTransitionStore';
 import './App.css';
 import QuizGame from './pages/QuizGame';
 import LightRays from './components/backgrounds/LightRays';
+import InviteFrame from './components/backgrounds/InviteFrame';
 import CreateRoomButton from './components/buttons/CreateRoomButton';
 import CardCarousel from './components/carousel/CardCarousel';
 import EnterRoomVeil from './components/transitions/EnterRoomVeil';
 import EnterRoomRevealImage from './components/transitions/EnterRoomRevealImage';
+import { ANSWER_ROSE_LAYER_ID } from './components/AnswerRose';
+import { DANMAKU_LAYER_ID } from './components/DanmakuOverlay';
 import StartGameIntro from './components/transitions/StartGameIntro';
 
 /** 進房前輪播照片（public/w1.jpg ~ w8.jpg） */
@@ -49,23 +52,33 @@ const App = () => {
   }, []);
 
   return (
-    <div className='relative min-h-screen overflow-hidden bg-black'>
+    <div className='relative min-h-screen overflow-hidden bg-paper text-ink'>
+      <div
+        className='pointer-events-none absolute inset-0 z-0'
+        style={{
+          background:
+            'radial-gradient(ellipse at 8% 0%, rgba(231,180,190,0.55), transparent 38%), radial-gradient(ellipse at 96% 6%, rgba(186,206,232,0.48), transparent 34%), radial-gradient(ellipse at 2% 100%, rgba(203,182,220,0.5), transparent 40%), radial-gradient(ellipse at 98% 96%, rgba(243,196,176,0.48), transparent 36%)',
+        }}
+      />
       <div className='pointer-events-none absolute inset-0 z-0'>
         <LightRays
           raysOrigin='top-center'
-          raysColor='#ffffff'
-          raysSpeed={1}
-          lightSpread={2}
-          rayLength={3}
+          raysColor='#e8c99a'
+          raysSpeed={0.55}
+          lightSpread={1.6}
+          rayLength={1.8}
           followMouse={false}
           mouseInfluence={0}
           noiseAmount={0}
           distortion={0}
-          className='custom-rays'
-          fadeDistance={2}
-          saturation={2}
+          className='opacity-40 mix-blend-soft-light'
+          fadeDistance={1.15}
+          saturation={1.2}
         />
       </div>
+      <InviteFrame />
+      <div id={ANSWER_ROSE_LAYER_ID} className="pointer-events-none absolute inset-0 z-30 overflow-visible" />
+      <div id={DANMAKU_LAYER_ID as string} className="pointer-events-none absolute inset-0 z-[35] overflow-visible" />
 
       {showRoom ? (
         <div className='relative z-10 p-4'>
