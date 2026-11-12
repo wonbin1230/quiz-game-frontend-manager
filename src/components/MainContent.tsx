@@ -32,7 +32,7 @@ const MainContent = () => {
       <div className='relative flex h-screen items-center justify-center p-8!'>
         {showDanmaku && <DanmakuOverlay />}
         {(showProgress || phase === GamePhase.Voting) && (
-          <div className='pointer-events-none absolute inset-x-0 top-3 z-20 flex flex-col items-center gap-2'>
+          <div className='pointer-events-none absolute inset-x-0 top-3 z-40 flex flex-col items-center gap-2'>
             {showProgress && (
               <div className='text-2xl font-bold tracking-[0.12em] text-gold'>
                 {questionIndex}/{total}

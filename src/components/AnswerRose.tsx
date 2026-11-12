@@ -2,55 +2,45 @@ import React, { useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { motion } from 'framer-motion';
 
-/** 掛在 App 裡、喜帖外框之上，讓玫瑰不受卡片與外框的層級限制 */
+/** 掛在 App 裡、喜帖外框之上，讓花朵不受卡片與外框的層級限制 */
 export const ANSWER_ROSE_LAYER_ID = 'answer-rose-layer';
 
-/** 玫瑰飄到正確選項中央再淡出的總時長（秒），下一題按鈕會等這段結束 */
+/** 花朵飄到正確選項中央再淡出的總時長（秒），下一題按鈕會等這段結束 */
 export const ANSWER_ROSE_DURATION = 4;
 
-const Rose = () => (
-  <svg viewBox="0 0 64 96" className="h-32 w-20 drop-shadow-md" aria-hidden>
-    <path
-      d="M32 50 C34 64, 29 78, 33 92"
-      fill="none"
-      stroke="#6d8a62"
-      strokeWidth="2.4"
-      strokeLinecap="round"
-    />
-    <ellipse cx="22" cy="70" rx="11" ry="5" transform="rotate(-42 22 70)" fill="#8eae7c" />
-    <ellipse cx="44" cy="62" rx="10" ry="4.6" transform="rotate(36 44 62)" fill="#75986a" />
-    <ellipse cx="32" cy="30" rx="17" ry="15" fill="#e7a8b2" />
-    <ellipse cx="20" cy="32" rx="11" ry="13" transform="rotate(-18 20 32)" fill="#d47886" />
-    <ellipse cx="44" cy="32" rx="11" ry="13" transform="rotate(18 44 32)" fill="#c45c6a" />
-    <ellipse cx="32" cy="26" rx="10" ry="11" fill="#f3d0d6" />
-    <ellipse cx="32" cy="28" rx="5.5" ry="6.5" fill="#a84d5c" />
-    <circle cx="32" cy="28" r="2.2" fill="#f6ebe8" />
-  </svg>
-);
+const FLOWER_SRC = `${import.meta.env.BASE_URL}flower.png`;
 
-/** 花朵在圖裡的中心，用來對齊卡片左上角與正中央 */
-const BLOOM_X = 40;
-const BLOOM_Y = 40;
+/** public/flower.png 去背後的像素尺寸 */
+const FLOWER_PIXEL_W = 892;
+const FLOWER_PIXEL_H = 871;
+/** 花心在圖中的比例，用來對準選項中央 */
+const BLOOM_X = 0.5194;
+const BLOOM_Y = 0.3879;
 
-const RoseVisual = ({ width, height }: { width: number, height: number }) => {
-  const startX = 36 - BLOOM_X;
-  const startY = 36 - BLOOM_Y;
-  const endX = width / 2 - BLOOM_X;
-  const endY = height / 2 - BLOOM_Y;
+const FlowerVisual = ({ width, height }: { width: number, height: number }) => {
+  const displayW = Math.min(width * 0.5, 300) * 0.75;
+  const displayH = displayW * (FLOWER_PIXEL_H / FLOWER_PIXEL_W);
+  const bloomX = displayW * BLOOM_X;
+  const bloomY = displayH * BLOOM_Y;
+
+  const startX = width * 0.18 - bloomX;
+  const startY = height * 0.12 - bloomY;
+  const endX = width / 2 - bloomX;
+  const endY = height / 2 - bloomY;
   const midX = startX + (endX - startX) * 0.46;
-  const midY = startY + (endY - startY) * 0.3;
+  const midY = startY + (endY - startY) * 0.28;
 
   return (
     <motion.div
-      className="absolute top-0 left-0 h-32 w-20"
-      style={{ originX: 0.5, originY: 40 / 128, filter: 'drop-shadow(0 10px 14px rgba(168,77,92,0.45))' }}
-      initial={{ opacity: 0, x: startX, y: startY, scale: 0.7, rotate: -18 }}
+      className="absolute top-0 left-0"
+      style={{ width: displayW, height: displayH, originX: BLOOM_X, originY: BLOOM_Y }}
+      initial={{ opacity: 0, x: startX, y: startY, scale: 0.72, rotate: -8 }}
       animate={{
         opacity: [0, 1, 1, 1, 0],
         x: [startX, midX, endX, endX, endX],
         y: [startY, midY, endY, endY, endY],
-        scale: [0.7, 1.05, 1.4, 1.55, 1.6],
-        rotate: [-18, -8, 0, 2, 3],
+        scale: [0.72, 1.02, 1.16, 1.22, 1.26],
+        rotate: [-8, -3, 0, 0, 0],
       }}
       transition={{
         duration: ANSWER_ROSE_DURATION,
@@ -58,7 +48,17 @@ const RoseVisual = ({ width, height }: { width: number, height: number }) => {
         ease: 'easeInOut',
       }}
     >
-      <Rose />
+      <div
+        className="h-full w-full"
+        style={{ filter: 'drop-shadow(0 12px 16px rgba(168, 90, 110, 0.38))' }}
+      >
+        <img
+          src={FLOWER_SRC}
+          alt=""
+          draggable={false}
+          className="answer-flower-wind pointer-events-none h-full w-full select-none"
+        />
+      </div>
     </motion.div>
   );
 };
@@ -123,7 +123,7 @@ const AnswerRose = ({ active }: IAnswerRoseProps) => {
             className="pointer-events-none absolute overflow-visible"
             style={{ top: box.top, left: box.left, width: box.width, height: box.height }}
           >
-            <RoseVisual width={box.width} height={box.height} />
+            <FlowerVisual width={box.width} height={box.height} />
           </div>,
           layer,
         )

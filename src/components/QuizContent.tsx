@@ -33,7 +33,7 @@ const QuizContent = () => {
         {phase === GamePhase.Voting && <Question />}
         {phase === GamePhase.Voting && <OptionArea />}
         {inSettle && (
-          <div className='flex min-h-0 flex-1 flex-col gap-6 pt-10'>
+          <div className='flex min-h-0 flex-1 flex-col gap-6 pt-14!'>
             <div className='min-h-0 flex-1'>
               <Settle />
             </div>

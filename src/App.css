@@ -9,3 +9,18 @@
 	--color-rose: #a56b78;
 	--color-lilac: #cbb6dc;
 }
+
+/* 揭曉答案的百合：以花莖底部為支點，左右隨風搖擺 */
+@keyframes answer-flower-wind {
+	0% { transform: rotate(-9deg); }
+	20% { transform: rotate(13deg); }
+	42% { transform: rotate(-6deg); }
+	63% { transform: rotate(11deg); }
+	82% { transform: rotate(-10deg); }
+	100% { transform: rotate(-9deg); }
+}
+
+.answer-flower-wind {
+	transform-origin: 47.48% 97.83%;
+	animation: answer-flower-wind 2.15s ease-in-out infinite;
+}

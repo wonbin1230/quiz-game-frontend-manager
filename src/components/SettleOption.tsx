@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
-import AnswerRose from './AnswerRose';
+import AnswerRose, { ANSWER_ROSE_DURATION } from './AnswerRose';
+
+const CORRECT_SRC = `${import.meta.env.BASE_URL}correct.png`;
 
 interface ISettleOptionProps {
 	label: string,
@@ -21,16 +23,26 @@ export const SettleOption = ({
 	dimmed = false,
 }: ISettleOptionProps) => {
 	const percentage = totalVotes === 0 ? 0 : (votes / totalVotes) * 100;
+	const [showFrame, setShowFrame] = useState(false);
+
+	useEffect(() => {
+		if (!showAnswerStamp) {
+			setShowFrame(false);
+			return;
+		}
+		const timer = window.setTimeout(() => setShowFrame(true), ANSWER_ROSE_DURATION * 1000);
+		return () => window.clearTimeout(timer);
+	}, [showAnswerStamp]);
 
 	return (
 		<div className={`relative h-full min-h-0 overflow-visible ${showAnswerStamp ? 'z-30' : 'z-0'}`}>
 			<motion.div
 				className={`relative flex h-full flex-col justify-between gap-3 overflow-hidden rounded-xl border-2 bg-white/70 p-4 backdrop-blur-sm ${
-					showAnswerStamp ? 'border-[#c98996]' : 'border-blush/80'
+					showFrame ? 'border-[#c98996]' : 'border-blush/80'
 				} ${dimmed ? 'opacity-45' : 'opacity-100'}`}
 				initial={false}
 				animate={
-					showAnswerStamp
+					showFrame
 						? {
 							boxShadow: [
 								'0 0 0 1px rgba(201,137,150,0.35), 0 0 10px rgba(231,180,190,0.28)',
@@ -41,17 +53,17 @@ export const SettleOption = ({
 						: { boxShadow: '0 0 0 0 rgba(168,77,92,0)' }
 				}
 				transition={
-					showAnswerStamp
-						? { duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 2.2 }
+					showFrame
+						? { duration: 1.5, repeat: Infinity, ease: 'easeInOut' }
 						: { duration: 0.3 }
 				}
 			>
-				{showAnswerStamp && (
+				{showFrame && (
 					<motion.div
 						className="pointer-events-none absolute inset-0 rounded-[10px] border-2 border-[#f0c4cb]"
 						initial={{ opacity: 0 }}
 						animate={{ opacity: [0.25, 0.7, 0.25] }}
-						transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut', delay: 2.2 }}
+						transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
 					/>
 				)}
 				<div className="relative grid min-h-0 flex-1 grid-cols-[40px_1fr] content-center items-center">
@@ -92,6 +104,17 @@ export const SettleOption = ({
 					</div>
 				</div>
 			</motion.div>
+			{showAnswerStamp && (
+				<motion.img
+					src={CORRECT_SRC}
+					alt="正確答案"
+					draggable={false}
+					className="pointer-events-none absolute left-1/2 top-0 z-40 w-[27%] max-w-[115px] -translate-x-1/2 -translate-y-[30%] select-none"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					transition={{ duration: 0.9, ease: 'easeOut', delay: ANSWER_ROSE_DURATION * 0.6 }}
+				/>
+			)}
 			<AnswerRose active={showAnswerStamp} />
 		</div>
 	);
